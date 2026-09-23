@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420">
+<defs>
+<clipPath id="left"><polygon points="0,0 710,0 570,420 0,420"/></clipPath>
+<clipPath id="right"><polygon points="710,0 1280,0 1280,420 570,420"/></clipPath>
+<clipPath id="card"><rect width="1280" height="420" rx="24"/></clipPath>
+</defs>
+<g clip-path="url(#card)">
+<rect width="1280" height="420" fill="#f6f3e8"/>
+<rect width="1280" height="420" fill="#29292a" clip-path="url(#right)"/>
+<g clip-path="url(#left)">
+<text x="640" y="200" text-anchor="middle" font-family="'Inter','SF Pro Display','Segoe UI',Helvetica,Arial,sans-serif" font-size="112" font-weight="700" letter-spacing="-3" fill="#2e2c28">exquisite</text>
+<text x="640" y="258" text-anchor="middle" font-family="'Inter','SF Pro Display','Segoe UI',Helvetica,Arial,sans-serif" font-size="26" fill="#2e2c28" letter-spacing="0.5">monochrome code · color only where it means something</text>
+<text x="640" y="372" text-anchor="middle" font-family="'JetBrains Mono','SF Mono','Cascadia Code',Menlo,Consolas,monospace" font-size="17" fill="#8e8c84" letter-spacing="4">NEOVIM · GHOSTTY · KITTY · LAZYGIT</text>
+</g>
+<g clip-path="url(#right)">
+<text x="640" y="200" text-anchor="middle" font-family="'Inter','SF Pro Display','Segoe UI',Helvetica,Arial,sans-serif" font-size="112" font-weight="700" letter-spacing="-3" fill="#d4d2cc">exquisite</text>
+<text x="640" y="258" text-anchor="middle" font-family="'Inter','SF Pro Display','Segoe UI',Helvetica,Arial,sans-serif" font-size="26" fill="#d4d2cc" letter-spacing="0.5">monochrome code · color only where it means something</text>
+<text x="640" y="372" text-anchor="middle" font-family="'JetBrains Mono','SF Mono','Cascadia Code',Menlo,Consolas,monospace" font-size="17" fill="#7f7e7b" letter-spacing="4">NEOVIM · GHOSTTY · KITTY · LAZYGIT</text>
+</g>
+<circle cx="507" cy="310" r="9" fill="#a53d38"/>
+<circle cx="545" cy="310" r="9" fill="#904e1b"/>
+<circle cx="583" cy="310" r="9" fill="#765d0c"/>
+<circle cx="621" cy="310" r="9" fill="#366b2c"/>
+<circle cx="659" cy="310" r="9" fill="#84bfc1"/>
+<circle cx="697" cy="310" r="9" fill="#85b5dd"/>
+<circle cx="735" cy="310" r="9" fill="#94a8e8"/>
+<circle cx="773" cy="310" r="9" fill="#bb9fe3"/>
+</g>
+</svg>

@@ -1,0 +1,126 @@
+*exquisite.txt*        Monochrome code. Color only where it means something.
+
+==============================================================================
+CONTENTS                                                   *exquisite-contents*
+
+  1. Introduction ............................ |exquisite-introduction|
+  2. Usage ................................... |exquisite-usage|
+  3. Configuration ........................... |exquisite-config|
+  4. Commands ................................ |exquisite-commands|
+  5. API ..................................... |exquisite-api|
+  6. Extras .................................. |exquisite-extras|
+
+==============================================================================
+1. INTRODUCTION                                        *exquisite-introduction*
+
+exquisite is a monochrome colorscheme. All code uses a single foreground
+color. Structure comes from style (italic comments, bold keywords), not from
+hue. Color is reserved for places where it carries meaning:
+
+  - git: add = green, change = blue, delete = red
+  - diagnostics: error, warn, info, hint, ok
+  - LSP completion and symbol kinds (blink.cmp, dropbar)
+  - file icons (mini.icons)
+  - search and TODO/FIXME/NOTE markers
+
+Highlights are compiled to LuaJIT bytecode and cached, so a cached load takes
+a few milliseconds.
+
+==============================================================================
+2. USAGE                                                      *exquisite-usage*
+
+>lua
+    require("exquisite").setup({})   -- optional
+    vim.cmd.colorscheme("exquisite")
+<
+                                  *exquisite* *exquisite-light* *exquisite-dark*
+  exquisite         follows 'background' (or the `variant` option)
+  exquisite-light   always light
+  exquisite-dark    always dark
+
+Neovim detects the terminal background at startup. When you use `exquisite`,
+the theme follows the terminal and switches when 'background' changes.
+
+==============================================================================
+3. CONFIGURATION                                             *exquisite-config*
+
+Defaults:
+>lua
+    require("exquisite").setup({
+      variant = "auto",        -- "auto" | "light" | "dark"
+      transparent = false,
+      terminal_colors = true,
+      dim_inactive = false,
+      muted_comments = false,
+      float = { solid = false },
+      styles = {
+        comments = { italic = true },
+        keywords = { bold = true },
+        functions = {}, variables = {}, strings = {},
+        types = {}, constants = {}, operators = {},
+      },
+      integrations = {
+        blink = true, dropbar = true, gitsigns = true, grug_far = true,
+        lazy = true, mason = true, mini = true,
+        semantic_tokens = true, treesitter = true,
+      },
+      cache = true,
+      on_colors = nil,         -- fun(colors, variant)
+      on_highlights = nil,     -- fun(hl, colors, variant)
+    })
+<
+                                                          *exquisite-on_colors*
+on_colors(colors, variant)
+    Change the palette before highlights are built. Keys: `bg`, `fg`, `red`,
+    `orange`, `yellow`, `green`, `cyan`, `azure`, `blue`, `purple`, `accent`,
+    `surface1`, `surface2`, `surface3`, `border`, `muted`, `bg_dim`,
+    `bg_float`, `git.{add,change,delete}`,
+    `diag.{error,warn,info,hint,ok}`.
+
+                                                      *exquisite-on_highlights*
+on_highlights(hl, colors, variant)
+    Change or add highlight groups. `hl` maps group names to
+    |nvim_set_hl()| specs, with colors as "#rrggbb" strings.
+
+The compiled cache is keyed by a hash of your options, so changes take effect
+on the next `:colorscheme`. The hash covers function bodies but not captured
+upvalues. If you change such a value, run |:ExquisiteCompile|.
+
+==============================================================================
+4. COMMANDS                                                *exquisite-commands*
+
+                                                            *:ExquisiteCompile*
+:ExquisiteCompile       Delete and rebuild the compiled cache, then reload.
+
+                                                         *:ExquisiteClearCache*
+:ExquisiteClearCache    Delete the compiled cache.
+
+                                                             *:ExquisiteExtras*
+:ExquisiteExtras [dir]  Write the Ghostty, Kitty and Lazygit themes to [dir]
+                        (default: the plugin's `extras/` directory).
+
+==============================================================================
+5. API                                                          *exquisite-api*
+
+require("exquisite").setup({opts})         Configure.
+require("exquisite").load({name})          Apply a colorscheme by name.
+require("exquisite").colors({variant})     Return the full palette.
+require("exquisite").highlights({variant}) Return the final highlight table.
+require("exquisite").compile()             Same as |:ExquisiteCompile|.
+require("exquisite").clear_cache()         Same as |:ExquisiteClearCache|.
+require("exquisite").extras({dir})         Same as |:ExquisiteExtras|.
+
+==============================================================================
+6. EXTRAS                                                    *exquisite-extras*
+
+extras/ghostty/exquisite-{light,dark}
+    Copy to ~/.config/ghostty/themes/ and set:
+    `theme = light:exquisite-light,dark:exquisite-dark`
+
+extras/kitty/exquisite-{light,dark}.conf
+    Copy to ~/.config/kitty/{light,dark}-theme.auto.conf.
+
+extras/lazygit/exquisite-{light,dark}.yml
+    Merge into config.yml, or append to LG_CONFIG_FILE.
+
+ vim:tw=78:ts=8:ft=help:norl:
