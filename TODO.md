@@ -1,4 +1,4 @@
-# exquisite-color.nvim — TODO
+# essential.nvim — TODO
 
 > Monocromático no código. Cor apenas onde ela carrega informação.
 
@@ -14,11 +14,11 @@
 - [x] Script de validação de contraste (`scripts/contrast.lua`).
 
 ## Core (performance extrema)
-- [x] `colors/exquisite.lua` (segue `background`), `exquisite-light.lua`, `exquisite-dark.lua`.
+- [x] `colors/essential.lua` (segue `background`), `essential-light.lua`, `essential-dark.lua`.
 - [x] Compilação para bytecode (`string.dump`) em cache, chaveado por hash da config + versão.
 - [x] Cores emitidas como inteiros (sem parsing de string hex no `nvim_set_hl`).
 - [x] Zero `require` de plugins, zero autocmds no caminho quente.
-- [x] `:ExquisiteCompile` / `:ExquisiteClearCache`.
+- [x] `:EssentialCompile` / `:EssentialClearCache`.
 - [x] Troca automática light/dark via `background` (Neovim 0.10+ detecta o terminal por OSC 11).
 
 ## Grupos do Neovim 0.12
@@ -45,7 +45,7 @@
 - [x] Statusline dos dotfiles (`StMode*`, `St*`) via `on_highlights` documentado.
 
 ## Extras (gerados da mesma paleta)
-- [x] Gerador `lua/exquisite/extras/init.lua` (`:ExquisiteExtras` / headless).
+- [x] Gerador `lua/essential/extras/init.lua` (`:EssentialExtras` / headless).
 - [x] Ghostty (light/dark)
 - [x] Kitty (light/dark + `*.auto.conf`)
 - [x] Lazygit (light/dark)
@@ -54,12 +54,12 @@
 - [x] `variant`, `transparent`, `terminal_colors`, `dim_inactive`, `styles`, `float`, `ui`
 - [x] `on_colors(colors, variant)`, `on_highlights(hl, colors, variant)`
 - [x] `integrations` liga/desliga por plugin
-- [x] API pública: `require("exquisite").colors(variant)`
+- [x] API pública: `require("essential").colors(variant)`
 
 ## Documentação
 - [x] README profissional (instalação, config, API, extras, filosofia)
 - [x] Banner SVG (`assets/banner.svg`)
-- [x] `doc/exquisite.txt` (`:h exquisite`)
+- [x] `doc/essential.txt` (`:h essential`)
 - [x] LICENSE (MIT)
 
 ## Qualidade

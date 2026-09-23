@@ -1,8 +1,8 @@
 -- Renders assets/banner.svg and assets/preview.svg from the real palette.
 -- Usage: nvim --headless -u NONE --cmd "set rtp^=." -l scripts/assets.lua
 
-local ex = require("exquisite")
-local util = require("exquisite.util")
+local ex = require("essential")
+local util = require("essential.util")
 local L, D = ex.colors("light"), ex.colors("dark")
 
 local FONT = "'JetBrains Mono','SF Mono','Cascadia Code',Menlo,Consolas,monospace"
@@ -44,7 +44,7 @@ local function banner()
   local function title(c, clip)
     add('<g clip-path="url(#%s)">', clip)
     add(
-      '<text x="%d" y="200" text-anchor="middle" font-family="%s" font-size="112" font-weight="700" letter-spacing="-3" fill="%s">exquisite</text>',
+      '<text x="%d" y="200" text-anchor="middle" font-family="%s" font-size="112" font-weight="700" letter-spacing="-3" fill="%s">essential</text>',
       W / 2, SANS, c.fg
     )
     add(
@@ -191,7 +191,7 @@ local function editor(c, ox, oy, w, h, label)
   add('<rect x="%d" y="%d" width="%d" height="34" fill="%s"/>', ox + 1, sy, w - 2, c.surface2)
   add('<rect x="%d" y="%d" width="70" height="34" fill="%s"/>', ox + 1, sy, c.blue)
   add('<text x="%d" y="%d" fill="%s" font-weight="700">NOR</text>', ox + 20, sy + 22, c.bg)
-  add('<text x="%d" y="%d" fill="%s">[exquisite]  <tspan fill="%s">E:1</tspan> <tspan fill="%s">W:2</tspan></text>', ox + 86, sy + 22, c.blue, c.diag.error, c.diag.warn)
+  add('<text x="%d" y="%d" fill="%s">[essential]  <tspan fill="%s">E:1</tspan> <tspan fill="%s">W:2</tspan></text>', ox + 86, sy + 22, c.blue, c.diag.error, c.diag.warn)
   add('<text x="%d" y="%d" fill="%s" text-anchor="end"><tspan fill="%s"> main</tspan>  <tspan fill="%s">●</tspan> lua  8:14</text>', ox + w - 16, sy + 22, c.fg, c.green, c.blue)
   add("</g>")
   add('<rect x="%d" y="%d" width="%d" height="%d" rx="14" fill="none" stroke="%s"/>', ox, oy, w, h, c.border)

@@ -67,7 +67,7 @@
 <rect x="21" y="446" width="608" height="34" fill="#e2dfd5"/>
 <rect x="21" y="446" width="70" height="34" fill="#3b5bb2"/>
 <text x="40" y="468" fill="#f6f3e8" font-weight="700">NOR</text>
-<text x="106" y="468" fill="#3b5bb2">[exquisite]  <tspan fill="#a53d38">E:1</tspan> <tspan fill="#765d0c">W:2</tspan></text>
+<text x="106" y="468" fill="#3b5bb2">[essential]  <tspan fill="#a53d38">E:1</tspan> <tspan fill="#765d0c">W:2</tspan></text>
 <text x="614" y="468" fill="#2e2c28" text-anchor="end"><tspan fill="#366b2c"> main</tspan>  <tspan fill="#3b5bb2">●</tspan> lua  8:14</text>
 </g>
 <rect x="20" y="20" width="610" height="460" rx="14" fill="none" stroke="#c2bfb6"/>
@@ -139,7 +139,7 @@
 <rect x="651" y="446" width="608" height="34" fill="#3c3c3c"/>
 <rect x="651" y="446" width="70" height="34" fill="#94a8e8"/>
 <text x="670" y="468" fill="#29292a" font-weight="700">NOR</text>
-<text x="736" y="468" fill="#94a8e8">[exquisite]  <tspan fill="#e8938d">E:1</tspan> <tspan fill="#d6bf7e">W:2</tspan></text>
+<text x="736" y="468" fill="#94a8e8">[essential]  <tspan fill="#e8938d">E:1</tspan> <tspan fill="#d6bf7e">W:2</tspan></text>
 <text x="1244" y="468" fill="#d4d2cc" text-anchor="end"><tspan fill="#9fc48c"> main</tspan>  <tspan fill="#94a8e8">●</tspan> lua  8:14</text>
 </g>
 <rect x="650" y="20" width="610" height="460" rx="14" fill="none" stroke="#595857"/>

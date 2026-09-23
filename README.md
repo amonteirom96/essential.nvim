@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="exquisite" width="100%">
+  <img src="assets/banner.svg" alt="essential" width="100%">
 </p>
 
 <p align="center">
@@ -16,13 +16,13 @@
 ---
 
 <p align="center">
-  <img src="assets/preview.svg" alt="exquisite light and dark" width="100%">
+  <img src="assets/preview.svg" alt="essential light and dark" width="100%">
 </p>
 
 ## Philosophy
 
 Most colorschemes paint every token a different hue. After a while the rainbow
-stops telling you anything. **exquisite** does the opposite:
+stops telling you anything. **essential** does the opposite:
 
 - **Code is one color.** Keywords, strings, functions and types all use the
   same foreground. You tell them apart by shape, not hue. Comments are
@@ -42,7 +42,7 @@ stops telling you anything. **exquisite** does the opposite:
 
 ## Features
 
-- Two variants, `light` and `dark`, plus `exquisite`, which follows
+- Two variants, `light` and `dark`, plus `essential`, which follows
   `'background'`. Neovim 0.10+ detects the terminal background (OSC 11), so the
   theme matches your terminal automatically.
 - **Extreme performance.** Highlights are compiled to stripped LuaJIT
@@ -78,14 +78,14 @@ stops telling you anything. **exquisite** does the opposite:
 
 ```lua
 {
-  "amonteirom96/exquisite-color.nvim",
+  "amonteirom96/essential.nvim",
   lazy = false,
   priority = 1000,
-  build = ":ExquisiteCompile",
+  build = ":EssentialCompile",
   opts = {},
   config = function(_, opts)
-    require("exquisite").setup(opts)
-    vim.cmd.colorscheme("exquisite")
+    require("essential").setup(opts)
+    vim.cmd.colorscheme("essential")
   end,
 }
 ```
@@ -93,25 +93,25 @@ stops telling you anything. **exquisite** does the opposite:
 Native `vim.pack` (Neovim 0.12):
 
 ```lua
-vim.pack.add({ "https://github.com/amonteirom96/exquisite-color.nvim" })
-require("exquisite").setup({})
-vim.cmd.colorscheme("exquisite")
+vim.pack.add({ "https://github.com/amonteirom96/essential.nvim" })
+require("essential").setup({})
+vim.cmd.colorscheme("essential")
 ```
 
 ### Colorschemes
 
 | Command | Behavior |
 | --- | --- |
-| `:colorscheme exquisite` | follows `'background'` (or the `variant` option) |
-| `:colorscheme exquisite-light` | always light |
-| `:colorscheme exquisite-dark` | always dark |
+| `:colorscheme essential` | follows `'background'` (or the `variant` option) |
+| `:colorscheme essential-light` | always light |
+| `:colorscheme essential-dark` | always dark |
 
 ## Configuration
 
 Calling `setup()` is optional. These are the defaults:
 
 ```lua
-require("exquisite").setup({
+require("essential").setup({
   variant = "auto",          -- "auto" (follow 'background') | "light" | "dark"
   transparent = false,       -- no background on Normal, floats and the sign column
   terminal_colors = true,    -- set g:terminal_color_0..15
@@ -144,13 +144,13 @@ require("exquisite").setup({
   cache = true,              -- compile to bytecode (turn off only while hacking on the theme)
 
   --- Change the palette before any highlight is built.
-  ---@param colors exquisite.Colors
+  ---@param colors essential.Colors
   ---@param variant "light"|"dark"
   on_colors = function(colors, variant) end,
 
   --- Add or change highlight groups.
   ---@param hl table<string, vim.api.keyset.highlight>
-  ---@param colors exquisite.Colors
+  ---@param colors essential.Colors
   ---@param variant "light"|"dark"
   on_highlights = function(hl, colors, variant) end,
 })
@@ -161,7 +161,7 @@ require("exquisite").setup({
 **Pure monochrome.** No bold or italic anywhere:
 
 ```lua
-require("exquisite").setup({
+require("essential").setup({
   styles = { comments = {}, keywords = {} },
 })
 ```
@@ -169,7 +169,7 @@ require("exquisite").setup({
 **Warmer paper, and a different accent for matches and prompts:**
 
 ```lua
-require("exquisite").setup({
+require("essential").setup({
   on_colors = function(c, variant)
     if variant == "light" then
       c.bg = "#f8f1de"
@@ -182,7 +182,7 @@ require("exquisite").setup({
 **Custom statusline groups:**
 
 ```lua
-require("exquisite").setup({
+require("essential").setup({
   on_highlights = function(hl, c)
     local modes = {
       Normal = c.blue, Insert = c.green, Visual = c.red,
@@ -225,9 +225,9 @@ numbers and whitespace. It never appears in code.
 Use the palette in your own config:
 
 ```lua
-local c = require("exquisite").colors()        -- current variant
-local light = require("exquisite").colors("light")
-local groups = require("exquisite").highlights("dark")
+local c = require("essential").colors()        -- current variant
+local light = require("essential").colors("light")
+local groups = require("essential").highlights("dark")
 ```
 
 ## Extras
@@ -236,14 +236,14 @@ Themes for other tools live in [`extras/`](extras). They are generated from the
 palette and include your `on_colors` overrides when you regenerate them:
 
 ```vim
-:ExquisiteExtras [output-dir]
+:EssentialExtras [output-dir]
 ```
 
 | Tool | Files | Setup |
 | --- | --- | --- |
-| **Ghostty** | `extras/ghostty/exquisite-{light,dark}` | copy to `~/.config/ghostty/themes/`, then `theme = light:exquisite-light,dark:exquisite-dark` |
-| **Kitty** | `extras/kitty/exquisite-{light,dark}.conf` | copy them to `~/.config/kitty/light-theme.auto.conf` and `dark-theme.auto.conf` to follow the OS theme, or `include` one |
-| **Lazygit** | `extras/lazygit/exquisite-{light,dark}.yml` | `LG_CONFIG_FILE=~/.config/lazygit/config.yml,~/.config/lazygit/exquisite-dark.yml` |
+| **Ghostty** | `extras/ghostty/essential-{light,dark}` | copy to `~/.config/ghostty/themes/`, then `theme = light:essential-light,dark:essential-dark` |
+| **Kitty** | `extras/kitty/essential-{light,dark}.conf` | copy them to `~/.config/kitty/light-theme.auto.conf` and `dark-theme.auto.conf` to follow the OS theme, or `include` one |
+| **Lazygit** | `extras/lazygit/essential-{light,dark}.yml` | `LG_CONFIG_FILE=~/.config/lazygit/config.yml,~/.config/lazygit/essential-dark.yml` |
 
 Lazygit's diff colors come from your terminal's ANSI palette, so they follow the
 Ghostty or Kitty theme automatically.
@@ -252,9 +252,9 @@ Ghostty or Kitty theme automatically.
 
 | Command | Description |
 | --- | --- |
-| `:ExquisiteCompile` | Rebuild the bytecode cache. Run it after updating the plugin, or after changing values captured inside an `on_*` closure. |
-| `:ExquisiteClearCache` | Delete the cache (`stdpath("cache")/exquisite`). |
-| `:ExquisiteExtras [dir]` | Generate the Ghostty, Kitty and Lazygit themes. |
+| `:EssentialCompile` | Rebuild the bytecode cache. Run it after updating the plugin, or after changing values captured inside an `on_*` closure. |
+| `:EssentialClearCache` | Delete the cache (`stdpath("cache")/essential`). |
+| `:EssentialExtras [dir]` | Generate the Ghostty, Kitty and Lazygit themes. |
 
 ## Development
 
@@ -266,12 +266,12 @@ nvim --headless -u NONE --cmd "set rtp^=." -l tests/smoke.lua
 # load-time benchmark
 nvim --headless -u NONE --cmd "set rtp^=." -l scripts/bench.lua
 # regenerate extras and README images from the palette
-nvim --headless -u NONE --cmd "set rtp^=." -c "lua require('exquisite').extras()" -c q
+nvim --headless -u NONE --cmd "set rtp^=." -c "lua require('essential').extras()" -c q
 nvim --headless -u NONE --cmd "set rtp^=." -l scripts/assets.lua
 ```
 
 When you change highlight definitions, bump `M.version` in
-`lua/exquisite/init.lua`. This invalidates every user's compiled cache.
+`lua/essential/init.lua`. This invalidates every user's compiled cache.
 
 ## License
 
