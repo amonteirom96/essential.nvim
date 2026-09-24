@@ -8,8 +8,8 @@
 - [x] Cores funcionais suaves, com contraste validado (WCAG) em ambos os fundos — nada que force a vista.
 
 ## Paleta
-- [x] Light: fundo branco puxado para amarelo claro (papel), texto cinza quase preto.
-- [x] Dark: fundo cinza, texto branco puxado para cinza.
+- [x] Light: fundo branco puxado para azul claro (papel), texto quase preto azulado.
+- [x] Dark: fundo cinza-azulado (ardósia), texto branco puxado para azul-acinzentado.
 - [x] Acentos: red, orange, yellow, green, cyan, azure, blue, purple (+ UI derivada por blend).
 - [x] Script de validação de contraste (`scripts/contrast.lua`).
 

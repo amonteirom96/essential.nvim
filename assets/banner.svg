@@ -5,17 +5,17 @@
 <clipPath id="card"><rect width="1280" height="420" rx="24"/></clipPath>
 </defs>
 <g clip-path="url(#card)">
-<rect width="1280" height="420" fill="#f6f3e8"/>
-<rect width="1280" height="420" fill="#29292a" clip-path="url(#right)"/>
+<rect width="1280" height="420" fill="#eef2f8"/>
+<rect width="1280" height="420" fill="#232833" clip-path="url(#right)"/>
 <g clip-path="url(#left)">
-<text x="640" y="200" text-anchor="middle" font-family="'Inter','SF Pro Display','Segoe UI',Helvetica,Arial,sans-serif" font-size="112" font-weight="700" letter-spacing="-3" fill="#2e2c28">essential</text>
-<text x="640" y="258" text-anchor="middle" font-family="'Inter','SF Pro Display','Segoe UI',Helvetica,Arial,sans-serif" font-size="26" fill="#2e2c28" letter-spacing="0.5">monochrome code · color only where it means something</text>
-<text x="640" y="372" text-anchor="middle" font-family="'JetBrains Mono','SF Mono','Cascadia Code',Menlo,Consolas,monospace" font-size="17" fill="#8e8c84" letter-spacing="4">NEOVIM · GHOSTTY · KITTY · LAZYGIT</text>
+<text x="640" y="200" text-anchor="middle" font-family="'Inter','SF Pro Display','Segoe UI',Helvetica,Arial,sans-serif" font-size="112" font-weight="700" letter-spacing="-3" fill="#262b36">essential</text>
+<text x="640" y="258" text-anchor="middle" font-family="'Inter','SF Pro Display','Segoe UI',Helvetica,Arial,sans-serif" font-size="26" fill="#262b36" letter-spacing="0.5">monochrome code · color only where it means something</text>
+<text x="640" y="372" text-anchor="middle" font-family="'JetBrains Mono','SF Mono','Cascadia Code',Menlo,Consolas,monospace" font-size="17" fill="#868b93" letter-spacing="4">NEOVIM · GHOSTTY · KITTY · LAZYGIT</text>
 </g>
 <g clip-path="url(#right)">
-<text x="640" y="200" text-anchor="middle" font-family="'Inter','SF Pro Display','Segoe UI',Helvetica,Arial,sans-serif" font-size="112" font-weight="700" letter-spacing="-3" fill="#d4d2cc">essential</text>
-<text x="640" y="258" text-anchor="middle" font-family="'Inter','SF Pro Display','Segoe UI',Helvetica,Arial,sans-serif" font-size="26" fill="#d4d2cc" letter-spacing="0.5">monochrome code · color only where it means something</text>
-<text x="640" y="372" text-anchor="middle" font-family="'JetBrains Mono','SF Mono','Cascadia Code',Menlo,Consolas,monospace" font-size="17" fill="#7f7e7b" letter-spacing="4">NEOVIM · GHOSTTY · KITTY · LAZYGIT</text>
+<text x="640" y="200" text-anchor="middle" font-family="'Inter','SF Pro Display','Segoe UI',Helvetica,Arial,sans-serif" font-size="112" font-weight="700" letter-spacing="-3" fill="#d0d6e1">essential</text>
+<text x="640" y="258" text-anchor="middle" font-family="'Inter','SF Pro Display','Segoe UI',Helvetica,Arial,sans-serif" font-size="26" fill="#d0d6e1" letter-spacing="0.5">monochrome code · color only where it means something</text>
+<text x="640" y="372" text-anchor="middle" font-family="'JetBrains Mono','SF Mono','Cascadia Code',Menlo,Consolas,monospace" font-size="17" fill="#7a7f8a" letter-spacing="4">NEOVIM · GHOSTTY · KITTY · LAZYGIT</text>
 </g>
 <circle cx="507" cy="310" r="9" fill="#a53d38"/>
 <circle cx="545" cy="310" r="9" fill="#904e1b"/>

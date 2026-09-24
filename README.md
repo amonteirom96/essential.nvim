@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  <img alt="Neovim" src="https://img.shields.io/badge/Neovim-0.10%2B-2e2c28?style=flat-square&logo=neovim&logoColor=f6f3e8">
+  <img alt="Neovim" src="https://img.shields.io/badge/Neovim-0.10%2B-262b36?style=flat-square&logo=neovim&logoColor=eef2f8">
   <img alt="Load time" src="https://img.shields.io/badge/load-~4ms-3b5bb2?style=flat-square">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-366b2c?style=flat-square">
 </p>
@@ -35,8 +35,8 @@ stops telling you anything. **essential** does the opposite:
   | LSP completion kinds (blink.cmp, dropbar) | one color per kind, the same everywhere |
   | File icons (mini.icons) | real icon colors |
   | Search, `TODO` / `FIXME` / `NOTE` markers | attention colors |
-- **Easy on the eyes.** The light variant uses warm paper with near-black ink.
-  The dark variant uses neutral gray with off-white text. Every accent passes
+- **Easy on the eyes.** The light variant uses cool blue-tinted paper with near-black ink.
+  The dark variant uses blue-gray slate with off-white text. Every accent passes
   **WCAG AA (≥ 4.5:1)** on both the background and the selection color
   (`scripts/contrast.lua`).
 
@@ -166,7 +166,7 @@ require("essential").setup({
 })
 ```
 
-**Warmer paper, and a different accent for matches and prompts:**
+**Warm paper instead of blue, and a different accent for matches and prompts:**
 
 ```lua
 require("essential").setup({
@@ -207,8 +207,8 @@ require("essential").setup({
 
 | Key | Light | Dark | Used for |
 | --- | --- | --- | --- |
-| `bg` | `#f6f3e8` | `#29292a` | background |
-| `fg` | `#2e2c28` | `#d4d2cc` | **all code** |
+| `bg` | `#eef2f8` | `#232833` | background |
+| `fg` | `#262b36` | `#d0d6e1` | **all code** |
 | `red` | `#a53d38` | `#e8938d` | git delete, errors |
 | `orange` | `#904e1b` | `#e0a574` | kinds (enum, constant) |
 | `yellow` | `#765d0c` | `#d6bf7e` | warnings, search |

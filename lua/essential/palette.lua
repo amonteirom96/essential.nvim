@@ -8,8 +8,8 @@ local M = {}
 ---@type table<"light"|"dark", essential.BasePalette>
 M.base = {
   light = {
-    bg = "#f6f3e8", -- paper: white leaning to a soft, quiet yellow
-    fg = "#2e2c28", -- warm near-black gray
+    bg = "#eef2f8", -- paper: white leaning to a soft, cool blue
+    fg = "#262b36", -- near-black leaning to blue
     red = "#a53d38",
     orange = "#904e1b",
     yellow = "#765d0c",
@@ -20,8 +20,8 @@ M.base = {
     purple = "#764ba3",
   },
   dark = {
-    bg = "#29292a", -- neutral gray
-    fg = "#d4d2cc", -- white leaning to gray
+    bg = "#232833", -- slate: dark gray leaning to blue
+    fg = "#d0d6e1", -- white leaning to a cool blue-gray
     red = "#e8938d",
     orange = "#e0a574",
     yellow = "#d6bf7e",
