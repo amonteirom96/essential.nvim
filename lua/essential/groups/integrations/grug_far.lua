@@ -23,7 +23,7 @@ return function(c, o)
     GrugFarResultsNumberLabel = { fg = c.muted },
     GrugFarResultsCursorLineNo = { fg = c.fg, bold = true },
     GrugFarResultsLongLineStr = { fg = c.muted },
-    GrugFarResultsMatch = { fg = c.fg, bg = blend(c.yellow, c.bg, 0.28), bold = true },
+    GrugFarResultsMatch = { fg = c.fg, bg = c.search, bold = true },
     GrugFarResultsMatchAdded = { fg = c.git.add, bg = blend(c.git.add, c.bg, 0.16) },
     GrugFarResultsMatchRemoved = { fg = c.git.delete, bg = blend(c.git.delete, c.bg, 0.14), strikethrough = true },
     GrugFarResultsAddIndicator = { fg = c.git.add },

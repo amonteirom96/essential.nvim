@@ -59,7 +59,7 @@ return function(c, o)
     -- Selection & search (color here helps you find things) ------------------
     Visual = { bg = c.surface3 },
     VisualNOS = { bg = c.surface2 },
-    Search = { fg = c.fg, bg = blend(c.yellow, c.bg, 0.28) },
+    Search = { fg = c.fg, bg = c.search },
     CurSearch = { fg = c.bg, bg = c.yellow, bold = true },
     IncSearch = { fg = c.bg, bg = c.yellow, bold = true },
     Substitute = { fg = c.bg, bg = c.orange, bold = true },

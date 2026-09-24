@@ -56,6 +56,7 @@ M.base = {
 ---@field border string
 ---@field muted string       UI chrome only (line numbers, whitespace) — never code
 ---@field accent string      single UI focal color (matches, prompts)
+---@field search string      background for search matches
 ---@field git { add: string, change: string, delete: string }
 ---@field diag { error: string, warn: string, info: string, hint: string, ok: string }
 
@@ -80,6 +81,9 @@ function M.get(variant, opts)
   c.bg_dim = is_light and blend(c.fg, c.bg, 0.03) or util.darken(c.bg, 0.12)
   c.bg_float = c.bg
   c.accent = c.blue
+  -- Highlighter yellow, picked by hand: blending `yellow` into the blue-tinted
+  -- bg cancels the chroma and turns into a muddy gray-khaki.
+  c.search = is_light and "#f2dc8c" or "#63532a"
 
   c.git = { add = c.green, change = c.blue, delete = c.red }
   c.diag = { error = c.red, warn = c.yellow, info = c.blue, hint = c.cyan, ok = c.green }
