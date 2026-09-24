@@ -81,9 +81,9 @@ function M.get(variant, opts)
   c.bg_dim = is_light and blend(c.fg, c.bg, 0.03) or util.darken(c.bg, 0.12)
   c.bg_float = c.bg
   c.accent = c.blue
-  -- Highlighter yellow, picked by hand: blending `yellow` into the blue-tinted
-  -- bg cancels the chroma and turns into a muddy gray-khaki.
-  c.search = is_light and "#f2dc8c" or "#63532a"
+  -- Tinted accent, same hue family as bg so it stays clean (a yellow blend
+  -- turns muddy gray here). Stronger than surface3 so it reads apart from Visual.
+  c.search = blend(c.accent, c.bg, is_light and 0.30 or 0.35)
 
   c.git = { add = c.green, change = c.blue, delete = c.red }
   c.diag = { error = c.red, warn = c.yellow, info = c.blue, hint = c.cyan, ok = c.green }

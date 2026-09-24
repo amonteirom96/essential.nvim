@@ -60,8 +60,8 @@ return function(c, o)
     Visual = { bg = c.surface3 },
     VisualNOS = { bg = c.surface2 },
     Search = { fg = c.fg, bg = c.search },
-    CurSearch = { fg = c.bg, bg = c.yellow, bold = true },
-    IncSearch = { fg = c.bg, bg = c.yellow, bold = true },
+    CurSearch = { fg = c.bg, bg = c.accent, bold = true },
+    IncSearch = { fg = c.bg, bg = c.accent, bold = true },
     Substitute = { fg = c.bg, bg = c.orange, bold = true },
     MatchParen = { bg = c.surface3, bold = true },
 
