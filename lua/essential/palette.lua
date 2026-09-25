@@ -57,8 +57,21 @@ M.base = {
 ---@field muted string       UI chrome only (line numbers, whitespace) — never code
 ---@field accent string      single UI focal color (matches, prompts)
 ---@field search string      background for search matches
+---@field code essential.CodeColors  tones of `fg` for code roles
 ---@field git { add: string, change: string, delete: string }
 ---@field diag { error: string, warn: string, info: string, hint: string, ok: string }
+
+--- Code roles. Every value is a tone of `fg` (same hue, different strength),
+--- never a separate color.
+---@class essential.CodeColors
+---@field keyword string
+---@field func string
+---@field type string
+---@field variable string
+---@field string string
+---@field constant string
+---@field punctuation string
+---@field comment string
 
 --- Build the full, derived color table for a variant.
 ---@param variant "light"|"dark"
@@ -84,6 +97,25 @@ function M.get(variant, opts)
   -- Tinted accent, same hue family as bg so it stays clean (a yellow blend
   -- turns muddy gray here). Stronger than surface3 so it reads apart from Visual.
   c.search = blend(c.accent, c.bg, is_light and 0.30 or 0.35)
+
+  -- Code tones: one hue, several strengths. `strong` pushes fg away from bg,
+  -- the others pull it toward bg. Every tone stays >= 4.5:1 on bg.
+  local strong = is_light and util.darken(c.fg, 0.45) or util.lighten(c.fg, 0.55)
+  local soft = blend(c.fg, c.bg, 0.88)
+  local subtle = blend(c.fg, c.bg, 0.78)
+  if opts.tones == false then
+    strong, soft, subtle = c.fg, c.fg, c.fg
+  end
+  c.code = {
+    keyword = strong,
+    func = strong,
+    type = c.fg,
+    variable = c.fg,
+    string = soft,
+    constant = soft,
+    punctuation = subtle,
+    comment = opts.muted_comments and c.muted or opts.tones == false and c.fg or blend(c.fg, c.bg, 0.72),
+  }
 
   c.git = { add = c.green, change = c.blue, delete = c.red }
   c.diag = { error = c.red, warn = c.yellow, info = c.blue, hint = c.cyan, ok = c.green }

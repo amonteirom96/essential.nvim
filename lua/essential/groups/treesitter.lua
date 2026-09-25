@@ -6,11 +6,13 @@
 ---@param o essential.Config
 return function(c, o)
   local s = o.styles
+  local k = c.code
   local fg = c.fg
 
+  ---@param color string
   ---@param style essential.Style
-  local function with(style)
-    return vim.tbl_extend("force", { fg = fg }, style)
+  local function with(color, style)
+    return vim.tbl_extend("force", { fg = color }, style)
   end
 
   local function marker(color)
@@ -18,48 +20,48 @@ return function(c, o)
   end
 
   return {
-    ["@variable"] = with(s.variables),
-    ["@variable.builtin"] = with(s.keywords),
-    ["@variable.parameter"] = with(s.variables),
-    ["@variable.member"] = with(s.variables),
+    ["@variable"] = with(k.variable, s.variables),
+    ["@variable.builtin"] = with(k.keyword, s.keywords),
+    ["@variable.parameter"] = with(k.variable, s.variables),
+    ["@variable.member"] = with(k.variable, s.variables),
 
-    ["@constant"] = with(s.constants),
-    ["@constant.builtin"] = with(s.constants),
+    ["@constant"] = with(k.constant, s.constants),
+    ["@constant.builtin"] = with(k.constant, s.constants),
     ["@module"] = { fg = fg },
     ["@module.builtin"] = { fg = fg },
-    ["@label"] = with(s.keywords),
+    ["@label"] = with(k.keyword, s.keywords),
 
-    ["@string"] = with(s.strings),
-    ["@string.documentation"] = vim.tbl_extend("force", { fg = o.muted_comments and c.muted or fg }, s.comments),
-    ["@string.regexp"] = with(s.strings),
-    ["@string.escape"] = { fg = fg, bold = true },
-    ["@string.special.url"] = { fg = fg, underline = true },
-    ["@character.special"] = { fg = fg, bold = true },
+    ["@string"] = with(k.string, s.strings),
+    ["@string.documentation"] = with(k.comment, s.comments),
+    ["@string.regexp"] = with(k.string, s.strings),
+    ["@string.escape"] = { fg = k.string, bold = true },
+    ["@string.special.url"] = { fg = k.string, underline = true },
+    ["@character.special"] = { fg = k.string, bold = true },
 
-    ["@type"] = with(s.types),
-    ["@type.builtin"] = with(s.types),
+    ["@type"] = with(k.type, s.types),
+    ["@type.builtin"] = with(k.type, s.types),
     ["@attribute"] = { fg = fg },
-    ["@property"] = with(s.variables),
+    ["@property"] = with(k.variable, s.variables),
 
-    ["@function"] = with(s.functions),
-    ["@function.builtin"] = with(s.functions),
-    ["@function.call"] = with(s.functions),
-    ["@function.method"] = with(s.functions),
-    ["@function.method.call"] = with(s.functions),
-    ["@constructor"] = with(s.types),
-    ["@operator"] = with(s.operators),
+    ["@function"] = with(k.func, s.functions),
+    ["@function.builtin"] = with(k.func, s.functions),
+    ["@function.call"] = with(k.func, s.functions),
+    ["@function.method"] = with(k.func, s.functions),
+    ["@function.method.call"] = with(k.func, s.functions),
+    ["@constructor"] = with(k.type, s.types),
+    ["@operator"] = with(k.punctuation, s.operators),
 
-    ["@keyword"] = with(s.keywords),
-    ["@keyword.function"] = with(s.keywords),
-    ["@keyword.return"] = with(s.keywords),
-    ["@keyword.operator"] = with(s.keywords),
+    ["@keyword"] = with(k.keyword, s.keywords),
+    ["@keyword.function"] = with(k.keyword, s.keywords),
+    ["@keyword.return"] = with(k.keyword, s.keywords),
+    ["@keyword.operator"] = with(k.keyword, s.keywords),
 
-    ["@punctuation"] = { fg = fg },
-    ["@punctuation.special"] = { fg = fg },
-    ["@tag"] = { fg = fg },
-    ["@tag.builtin"] = { fg = fg },
+    ["@punctuation"] = { fg = k.punctuation },
+    ["@punctuation.special"] = { fg = k.punctuation },
+    ["@tag"] = { fg = k.keyword },
+    ["@tag.builtin"] = { fg = k.keyword },
     ["@tag.attribute"] = { fg = fg, italic = true },
-    ["@tag.delimiter"] = { fg = fg },
+    ["@tag.delimiter"] = { fg = k.punctuation },
 
     -- Comment markers: the one place code gets color.
     ["@comment.error"] = marker(c.red),
@@ -72,16 +74,16 @@ return function(c, o)
     ["@markup.italic"] = { italic = true },
     ["@markup.strikethrough"] = { strikethrough = true },
     ["@markup.underline"] = { underline = true },
-    ["@markup.heading"] = { fg = fg, bold = true },
+    ["@markup.heading"] = { fg = k.keyword, bold = true },
     ["@markup.heading.1.delimiter.vimdoc"] = { fg = c.muted },
     ["@markup.heading.2.delimiter.vimdoc"] = { fg = c.muted },
-    ["@markup.quote"] = { fg = fg, italic = true },
+    ["@markup.quote"] = { fg = k.comment, italic = true },
     ["@markup.math"] = { fg = fg },
     ["@markup.link"] = { fg = fg },
     ["@markup.link.label"] = { fg = fg, bold = true },
-    ["@markup.link.url"] = { fg = fg, underline = true },
-    ["@markup.raw"] = { fg = fg, bg = c.surface1 },
-    ["@markup.raw.block"] = { fg = fg },
+    ["@markup.link.url"] = { fg = k.string, underline = true },
+    ["@markup.raw"] = { fg = k.string, bg = c.surface1 },
+    ["@markup.raw.block"] = { fg = k.string },
     ["@markup.list"] = { fg = fg, bold = true },
     ["@markup.list.checked"] = { fg = c.green },
     ["@markup.list.unchecked"] = { fg = c.muted },

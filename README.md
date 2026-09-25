@@ -4,7 +4,7 @@
 
 <p align="center">
   <b>Only exceptional colors.</b><br>
-  A monochrome Neovim colorscheme that uses color only where it carries meaning.
+  A one-hue Neovim colorscheme that uses color only where it carries meaning.
 </p>
 
 <p align="center">
@@ -24,9 +24,18 @@
 Most colorschemes paint every token a different hue. After a while the rainbow
 stops telling you anything. **essential** does the opposite:
 
-- **Code is one color.** Keywords, strings, functions and types all use the
-  same foreground. You tell them apart by shape, not hue. Comments are
-  italic and keywords are bold by default, and you can change both.
+- **Code is one color, in tones.** Keywords, strings, functions and comments
+  all use the same hue as the foreground, only stronger or softer. You tell
+  them apart by weight, not by a rainbow:
+  | Tone | Roles |
+  | --- | --- |
+  | strongest | keywords (also bold), functions, tags, headings |
+  | `fg` | variables, properties, types |
+  | softer | strings, numbers, constants |
+  | quieter | operators, punctuation |
+  | quietest | comments (also italic) |
+
+  Set `tones = false` for a single flat color.
 - **Color only where it means something:**
   | Where | Colors |
   | --- | --- |
@@ -65,6 +74,7 @@ stops telling you anything. **essential** does the opposite:
 | [mini.pick](https://github.com/echasnovski/mini.pick) / [mini.extra](https://github.com/echasnovski/mini.extra) | |
 | [mini.files](https://github.com/echasnovski/mini.files) | |
 | [mini.tabline](https://github.com/echasnovski/mini.tabline) | modified buffers in the git "change" blue |
+| Custom statusline | ready-made `StMode*`, `StGit*`, `StError`… groups, see [below](#statusline) |
 | [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) | signs, `numhl`, `linehl`, inline, preview, staged, blame |
 | [dropbar.nvim](https://github.com/Bekaboo/dropbar.nvim) | kind icons colored like the completion menu |
 | [grug-far.nvim](https://github.com/MagicDuck/grug-far.nvim) | |
@@ -116,7 +126,8 @@ require("essential").setup({
   transparent = false,       -- no background on Normal, floats and the sign column
   terminal_colors = true,    -- set g:terminal_color_0..15
   dim_inactive = false,      -- slightly different background on unfocused windows
-  muted_comments = false,    -- comments in the muted UI tone instead of the code color
+  tones = true,              -- code roles in tones of fg; false = one flat color
+  muted_comments = false,    -- comments in the muted UI tone (lighter than the comment tone)
   float = {
     solid = false,           -- filled floats with an invisible border
   },
@@ -139,6 +150,7 @@ require("essential").setup({
     mason = true,
     mini = true,             -- icons, pick, extra, files, tabline
     semantic_tokens = true,
+    statusline = true,       -- StMode*, StGit*, StError… for a hand-written statusline
     treesitter = true,
   },
   cache = true,              -- compile to bytecode (turn off only while hacking on the theme)
@@ -158,11 +170,22 @@ require("essential").setup({
 
 ### Examples
 
-**Pure monochrome.** No bold or italic anywhere:
+**Pure monochrome.** One flat color, no bold or italic anywhere:
 
 ```lua
 require("essential").setup({
+  tones = false,
   styles = { comments = {}, keywords = {} },
+})
+```
+
+**Change a single code tone.** For example, stronger comments:
+
+```lua
+require("essential").setup({
+  on_colors = function(c)
+    c.code.comment = c.fg
+  end,
 })
 ```
 
@@ -179,36 +202,37 @@ require("essential").setup({
 })
 ```
 
-**Custom statusline groups:**
+### Statusline
+
+Git and diagnostics already have their colors. Nothing to pick in `on_colors`:
+gitsigns, diff, `Added`/`Changed`/`Removed` and lazygit all use
+`c.git.{add,change,delete}` out of the box.
+
+For a hand-written statusline, the theme also ships these groups, with the same
+git and diagnostic colors (all on `surface2`):
+
+| Group | Color |
+| --- | --- |
+| `StModeNormal` · `Insert` · `Visual` · `Replace` · `Command` · `Other` | blue · green · red · orange · purple · cyan (filled) |
+| `StMode<Mode>Sep` | the mode color, for the powerline edge |
+| `StGit` · `StGitAdd` · `StGitChange` · `StGitDelete` | git add · add · change · delete |
+| `StError` · `StWarn` · `StInfo` · `StHint` | diagnostic colors |
+| `StProject` · `StLsp` | `accent` |
 
 ```lua
-require("essential").setup({
-  on_highlights = function(hl, c)
-    local modes = {
-      Normal = c.blue, Insert = c.green, Visual = c.red,
-      Replace = c.orange, Command = c.purple, Other = c.cyan,
-    }
-    for mode, color in pairs(modes) do
-      hl["StMode" .. mode] = { fg = c.bg, bg = color, bold = true }
-      hl["StMode" .. mode .. "Sep"] = { fg = color, bg = c.surface2 }
-    end
-    hl.StProject = { fg = c.blue, bg = c.surface2 }
-    hl.StGit = { fg = c.green, bg = c.surface2 }
-    hl.StError = { fg = c.diag.error, bg = c.surface2 }
-    hl.StWarn = { fg = c.diag.warn, bg = c.surface2 }
-    hl.StInfo = { fg = c.diag.info, bg = c.surface2 }
-    hl.StHint = { fg = c.diag.hint, bg = c.surface2 }
-    hl.StLsp = { fg = c.accent, bg = c.surface2 }
-  end,
-})
+local branch = vim.b.gitsigns_head
+vim.o.statusline = "%#StModeNormal# NOR %#StModeNormalSep#%* %#StGit# " .. (branch or "") .. "%*"
 ```
+
+Change any of them with `on_highlights`, or turn them off with
+`integrations = { statusline = false }`.
 
 ## Palette
 
 | Key | Light | Dark | Used for |
 | --- | --- | --- | --- |
 | `bg` | `#eef2f8` | `#232833` | background |
-| `fg` | `#262b36` | `#d0d6e1` | **all code** |
+| `fg` | `#262b36` | `#d0d6e1` | **all code** (in tones, see `code`) |
 | `red` | `#a53d38` | `#e8938d` | git delete, errors |
 | `orange` | `#904e1b` | `#e0a574` | kinds (enum, constant) |
 | `yellow` | `#765d0c` | `#d6bf7e` | warnings, search |
@@ -220,7 +244,12 @@ require("essential").setup({
 
 UI tones are derived from `fg` and `bg`: `surface1`, `surface2`, `surface3`,
 `border`, `muted` and `bg_dim`. `muted` appears only in UI chrome, such as line
-numbers and whitespace. It never appears in code.
+numbers and whitespace.
+
+Code tones live in `c.code` and are also derived from `fg` and `bg`:
+`keyword`, `func`, `type`, `variable`, `string`, `constant`, `punctuation` and
+`comment`. Each one stays at **≥ 4.5:1** on the background. Override any of them
+in `on_colors`.
 
 Use the palette in your own config:
 
@@ -259,7 +288,7 @@ Ghostty or Kitty theme automatically.
 ## Development
 
 ```sh
-# contrast check (WCAG AA for every accent, both variants)
+# contrast check (WCAG AA for every accent and code tone, both variants)
 nvim --headless -u NONE --cmd "set rtp^=." -l scripts/contrast.lua
 # smoke tests
 nvim --headless -u NONE --cmd "set rtp^=." -l tests/smoke.lua

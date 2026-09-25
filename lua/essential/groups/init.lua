@@ -14,6 +14,7 @@ M.integrations = {
   lazy = "integrations.lazy",
   mason = "integrations.mason",
   mini = "integrations.mini",
+  statusline = "integrations.statusline",
 }
 
 ---@param c essential.Colors

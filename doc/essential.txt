@@ -1,4 +1,4 @@
-*essential.txt*        Monochrome code. Color only where it means something.
+*essential.txt*        One-hue code. Color only where it means something.
 
 ==============================================================================
 CONTENTS                                                   *essential-contents*
@@ -13,9 +13,10 @@ CONTENTS                                                   *essential-contents*
 ==============================================================================
 1. INTRODUCTION                                        *essential-introduction*
 
-essential is a monochrome colorscheme. All code uses a single foreground
-color. Structure comes from style (italic comments, bold keywords), not from
-hue. Color is reserved for places where it carries meaning:
+essential is a one-hue colorscheme. All code uses tones of the foreground
+color: keywords and functions are stronger, strings and constants softer,
+punctuation and comments quieter. Style (italic comments, bold keywords) adds
+the rest. Color is reserved for places where it carries meaning:
 
   - git: add = green, change = blue, delete = red
   - diagnostics: error, warn, info, hint, ok
@@ -51,6 +52,7 @@ Defaults:
       transparent = false,
       terminal_colors = true,
       dim_inactive = false,
+      tones = true,            -- false: every code role in plain fg
       muted_comments = false,
       float = { solid = false },
       styles = {
@@ -62,7 +64,7 @@ Defaults:
       integrations = {
         blink = true, dropbar = true, gitsigns = true, grug_far = true,
         lazy = true, mason = true, mini = true,
-        semantic_tokens = true, treesitter = true,
+        semantic_tokens = true, statusline = true, treesitter = true,
       },
       cache = true,
       on_colors = nil,         -- fun(colors, variant)
@@ -74,8 +76,8 @@ on_colors(colors, variant)
     Change the palette before highlights are built. Keys: `bg`, `fg`, `red`,
     `orange`, `yellow`, `green`, `cyan`, `azure`, `blue`, `purple`, `accent`,
     `surface1`, `surface2`, `surface3`, `border`, `muted`, `bg_dim`,
-    `bg_float`, `git.{add,change,delete}`,
-    `diag.{error,warn,info,hint,ok}`.
+    `bg_float`, `git.{add,change,delete}`, `diag.{error,warn,info,hint,ok}`,
+    `code.{keyword,func,type,variable,string,constant,punctuation,comment}`.
 
                                                       *essential-on_highlights*
 on_highlights(hl, colors, variant)

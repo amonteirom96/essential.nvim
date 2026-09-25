@@ -1,4 +1,4 @@
---- LSP semantic tokens. Monochrome like the rest of the code; only modifiers
+--- LSP semantic tokens. Same tones as the rest of the code; only modifiers
 --- that carry meaning get a style.
 
 ---@param c essential.Colors
@@ -9,7 +9,7 @@ return function(c, o)
     ["@lsp.mod.deprecated"] = { strikethrough = true },
     ["@lsp.typemod.function.defaultLibrary"] = { link = "@function.builtin" },
     ["@lsp.typemod.variable.defaultLibrary"] = { link = "@variable.builtin" },
-    ["@lsp.typemod.variable.readonly"] = vim.tbl_extend("force", { fg = c.fg }, o.styles.constants),
+    ["@lsp.typemod.variable.readonly"] = vim.tbl_extend("force", { fg = c.code.constant }, o.styles.constants),
     ["@lsp.type.keyword"] = { link = "@keyword" },
     ["@lsp.type.unresolvedReference"] = { sp = c.diag.error, undercurl = true },
   }

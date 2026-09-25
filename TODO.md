@@ -3,7 +3,7 @@
 > Monocromático no código. Cor apenas onde ela carrega informação.
 
 ## Filosofia
-- [x] Código: **uma única cor** de texto (sem tons de cinza). Diferenciação só por estilo (itálico/negrito), configurável.
+- [x] Código: **uma única cor** de texto, em tons (keyword/função mais forte, string/constante mais suave, pontuação e comentário mais discretos) + estilo (itálico/negrito). `tones = false` volta ao plano.
 - [x] Cor apenas onde carrega significado: git (add verde / change azul / delete vermelho), diagnósticos, kinds do LSP, ícones do mini.icons, busca, TODO/FIXME.
 - [x] Cores funcionais suaves, com contraste validado (WCAG) em ambos os fundos — nada que force a vista.
 
@@ -42,7 +42,7 @@
 - [x] mason
 - [x] lazy.nvim
 - [x] nvim-treesitter
-- [x] Statusline dos dotfiles (`StMode*`, `St*`) via `on_highlights` documentado.
+- [x] Statusline nativa (`StMode*`, `StGit*`, `StError`…) — nada de escolher cor de git no `on_highlights`.
 
 ## Extras (gerados da mesma paleta)
 - [x] Gerador `lua/essential/extras/init.lua` (`:EssentialExtras` / headless).

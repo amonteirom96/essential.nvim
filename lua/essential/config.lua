@@ -8,7 +8,8 @@ local M = {}
 ---@field transparent? boolean                  no background on Normal/floats/sign column
 ---@field terminal_colors? boolean              set g:terminal_color_0..15
 ---@field dim_inactive? boolean                 slightly different bg on unfocused windows
----@field muted_comments? boolean               comments in the muted UI tone instead of fg
+---@field tones? boolean                        code roles in tones of fg (false = one flat fg)
+---@field muted_comments? boolean               comments in the muted UI tone
 ---@field float? { solid?: boolean }            solid = filled floats without visible border
 ---@field styles? table<"comments"|"keywords"|"functions"|"variables"|"strings"|"types"|"constants"|"operators", essential.Style>
 ---@field integrations? table<string, boolean>
@@ -20,6 +21,7 @@ M.defaults = {
   transparent = false,
   terminal_colors = true,
   dim_inactive = false,
+  tones = true,
   muted_comments = false,
   float = { solid = false },
   styles = {
@@ -41,6 +43,7 @@ M.defaults = {
     mason = true,
     mini = true, -- icons, pick, extra, files, tabline
     semantic_tokens = true,
+    statusline = true,
     treesitter = true,
   },
   cache = true,

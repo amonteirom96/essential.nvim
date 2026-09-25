@@ -13,11 +13,18 @@ for _, name in ipairs({ "essential-light", "essential-dark", "essential" }) do
   check(vim.g.colors_name == name, name .. ": colors_name=" .. tostring(vim.g.colors_name))
   local normal = vim.api.nvim_get_hl(0, { name = "Normal" })
   check(normal.fg and normal.bg, name .. ": Normal has fg/bg")
-  -- code is monochrome: every syntax group has fg == Normal.fg
-  for _, g in ipairs({ "String", "Function", "Keyword", "@variable", "Type", "Number", "@function.call", "Comment" }) do
-    local h = vim.api.nvim_get_hl(0, { name = g, link = false })
-    check(h.fg == normal.fg, ("%s: %s fg %s ~= Normal %s"):format(name, g, tostring(h.fg), tostring(normal.fg)))
+  -- code is one hue in several tones: roles differ, but only in strength
+  local function fg(g)
+    return vim.api.nvim_get_hl(0, { name = g, link = false }).fg
   end
+  check(fg("@variable") == normal.fg and fg("Type") == normal.fg, name .. ": variables/types use fg")
+  check(fg("Keyword") == fg("Function") and fg("Keyword") ~= normal.fg, name .. ": keywords/functions stronger")
+  check(fg("String") == fg("Number") and fg("String") ~= normal.fg, name .. ": strings/constants softer")
+  check(fg("Comment") ~= fg("String") and fg("Comment") ~= normal.fg, name .. ": comments quieter")
+  check(fg("@function.call") == fg("Function"), name .. ": treesitter follows legacy tones")
+  -- statusline groups ship with the theme
+  check(vim.api.nvim_get_hl(0, { name = "StGit" }).fg == vim.api.nvim_get_hl(0, { name = "GitSignsAdd" }).fg, name .. ": StGit uses git add")
+  check(vim.api.nvim_get_hl(0, { name = "StModeNormal" }).bg ~= nil, name .. ": StModeNormal")
   -- color where it matters
   local add = vim.api.nvim_get_hl(0, { name = "GitSignsAdd" }).fg
   local del = vim.api.nvim_get_hl(0, { name = "GitSignsDelete" }).fg
@@ -44,6 +51,14 @@ check(vim.api.nvim_get_hl(0, { name = "Normal" }).bg == nil, "transparent applie
 ex.setup({ on_highlights = function(hl) hl.Normal.fg = "#ff0000" end })
 vim.cmd.colorscheme("essential-dark")
 check(vim.api.nvim_get_hl(0, { name = "Normal" }).fg == 0xff0000, "on_highlights applied")
+
+-- tones = false: every code role is plain fg
+ex.setup({ tones = false })
+vim.cmd.colorscheme("essential-dark")
+local nfg = vim.api.nvim_get_hl(0, { name = "Normal" }).fg
+for _, g in ipairs({ "String", "Function", "Keyword", "Comment", "Number", "Operator" }) do
+  check(vim.api.nvim_get_hl(0, { name = g, link = false }).fg == nfg, "tones=false: " .. g)
+end
 
 -- highlights never produce invalid specs
 for _, v in ipairs({ "light", "dark" }) do

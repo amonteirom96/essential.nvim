@@ -76,15 +76,15 @@ end
 -------------------------------------------------------------------------------
 -- Preview: an editor mock-up rendered in both variants
 -------------------------------------------------------------------------------
--- token = { text, style } where style: nil | "kw" | "comment" | "todo"
+-- token = { text, style } where style: nil | "kw" | "fn" | "num" | "punct" | "comment" | "todo"
 local CODE = {
   { { "local", "kw" }, { " M = {}" } },
   {},
   { { "-- ", "comment" }, { "TODO", "todo" }, { " cache blended results", "comment" } },
   { { "--- Mix two colors, alpha in [0, 1].", "comment" } },
-  { { "function", "kw" }, { " M.blend(fg, bg, alpha)" } },
-  { { "  " }, { "local", "kw" }, { " r = fg.r * alpha + bg.r * (1 - alpha)" } },
-  { { "  " }, { "local", "kw" }, { " g = fg.g * alpha + bg.g * (1 - alpha)" } },
+  { { "function", "kw" }, { " M." }, { "blend", "fn" }, { "(fg, bg, alpha)", "punct" } },
+  { { "  " }, { "local", "kw" }, { " r = fg.r * alpha + bg.r * (" }, { "1", "num" }, { " - alpha)" } },
+  { { "  " }, { "local", "kw" }, { " g = fg.g * alpha + bg.g * (" }, { "1", "num" }, { " - alpha)" } },
   { { "  " }, { "return", "kw" }, { " M.h" } },
   { { "end", "kw" } },
   {},
@@ -142,9 +142,15 @@ local function editor(c, ox, oy, w, h, label)
     for _, tok in ipairs(line) do
       local text, style = tok[1], tok[2]
       if style == "kw" then
-        parts[#parts + 1] = fmt('<tspan font-weight="700">%s</tspan>', esc(text))
+        parts[#parts + 1] = fmt('<tspan fill="%s" font-weight="700">%s</tspan>', c.code.keyword, esc(text))
+      elseif style == "fn" then
+        parts[#parts + 1] = fmt('<tspan fill="%s">%s</tspan>', c.code.func, esc(text))
+      elseif style == "num" then
+        parts[#parts + 1] = fmt('<tspan fill="%s">%s</tspan>', c.code.constant, esc(text))
+      elseif style == "punct" then
+        parts[#parts + 1] = fmt('<tspan fill="%s">%s</tspan>', c.code.punctuation, esc(text))
       elseif style == "comment" then
-        parts[#parts + 1] = fmt('<tspan font-style="italic">%s</tspan>', esc(text))
+        parts[#parts + 1] = fmt('<tspan fill="%s" font-style="italic">%s</tspan>', c.code.comment, esc(text))
       elseif style == "todo" then
         parts[#parts + 1] = fmt('<tspan fill="%s" font-weight="700">%s</tspan>', c.bg, esc(text))
       else

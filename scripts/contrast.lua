@@ -18,6 +18,11 @@ for _, variant in ipairs({ "light", "dark" }) do
     failed = failed or not ok
     print(("  %-7s %s  on bg %5.2f  on surface2 %5.2f  %s"):format(k, c[k], r, r2, ok and "ok" or "FAIL"))
   end
+  for _, k in ipairs({ "keyword", "string", "punctuation", "comment" }) do
+    local r = util.contrast(c.code[k], c.bg)
+    failed = failed or r < MIN_TEXT
+    print(("  %-11s %s  on bg %5.2f  on surface2 %5.2f  (code tone)  %s"):format(k, c.code[k], r, util.contrast(c.code[k], c.surface2), r >= MIN_TEXT and "ok" or "FAIL"))
+  end
   local m = util.contrast(c.muted, c.bg)
   failed = failed or m < MIN_UI
   print(("  %-7s %s  on bg %5.2f  (UI chrome, min %.1f)"):format("muted", c.muted, m, MIN_UI))
