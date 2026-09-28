@@ -74,7 +74,7 @@ return function(c, o)
     StatusLineTermNC = { fg = c.muted, bg = c.surface1 },
     TabLine = { fg = c.muted, bg = c.surface1 },
     TabLineFill = { bg = bg },
-    TabLineSel = { fg = c.fg, bg = c.surface2, bold = true },
+    TabLineSel = { fg = c.fg, bg = c.surface2, bold = true, sp = c.accent, underline = true },
     WinBar = { fg = c.fg, bg = bg },
     WinBarNC = { fg = c.muted, bg = bg },
     WildMenu = { fg = c.fg, bg = c.surface3, bold = true },

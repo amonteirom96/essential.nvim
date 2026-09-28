@@ -47,11 +47,11 @@ return function(c, o)
     MiniFilesTitle = { fg = c.muted, bg = float_bg },
     MiniFilesTitleFocused = { fg = c.fg, bg = float_bg, bold = true },
 
-    -- mini.tabline (modified buffers use the git "change" color)
-    MiniTablineCurrent = { fg = c.fg, bg = c.surface2, bold = true },
+    -- mini.tabline (accent underline on the current buffer, modified buffers use the git "change" color)
+    MiniTablineCurrent = { fg = c.fg, bg = c.surface2, bold = true, sp = c.accent, underline = true },
     MiniTablineVisible = { fg = c.fg, bg = bg },
     MiniTablineHidden = { fg = c.muted, bg = bg },
-    MiniTablineModifiedCurrent = { fg = c.git.change, bg = c.surface2, bold = true },
+    MiniTablineModifiedCurrent = { fg = c.git.change, bg = c.surface2, bold = true, sp = c.accent, underline = true },
     MiniTablineModifiedVisible = { fg = c.git.change, bg = bg },
     MiniTablineModifiedHidden = { fg = util.blend(c.git.change, c.bg, 0.7), bg = bg },
     MiniTablineFill = { bg = bg },
