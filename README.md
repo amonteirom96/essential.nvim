@@ -91,7 +91,6 @@ stops telling you anything. **essential** does the opposite:
   "amonteirom96/essential.nvim",
   lazy = false,
   priority = 1000,
-  build = ":EssentialCompile",
   opts = {},
   config = function(_, opts)
     require("essential").setup(opts)
@@ -99,6 +98,11 @@ stops telling you anything. **essential** does the opposite:
   end,
 }
 ```
+
+No build step is needed: the highlight cache is compiled automatically when the
+colorscheme loads. If an existing spec has `build = ":EssentialCompile"`, remove
+that line and restart Neovim. Keep `:EssentialCompile` for manual cache rebuilds
+after the plugin has loaded.
 
 Native `vim.pack` (Neovim 0.12):
 
