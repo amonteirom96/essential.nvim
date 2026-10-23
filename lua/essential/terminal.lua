@@ -14,15 +14,17 @@ function M.ansi(c)
     return util.lighten(x, 0.14)
   end
 
+  -- TUIs use white for text/borders and black for filled accent labels.
+  -- Keep white mapped to readable text in light mode as well.
   return {
-    [0] = light and c.fg or c.surface3,
+    [0] = light and c.surface1 or c.surface3,
     c.red,
     c.green,
     c.yellow,
     c.blue,
     c.purple,
     c.cyan,
-    light and c.surface3 or c.fg,
+    c.fg,
     c.muted,
     bright(c.red),
     bright(c.green),
@@ -30,7 +32,7 @@ function M.ansi(c)
     bright(c.blue),
     bright(c.purple),
     bright(c.cyan),
-    light and c.bg or util.lighten(c.fg, 0.4),
+    light and util.darken(c.fg, 0.3) or util.lighten(c.fg, 0.4),
   }
 end
 

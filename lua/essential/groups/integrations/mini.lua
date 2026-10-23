@@ -3,7 +3,9 @@
 ---@param o essential.Config
 return function(c, o)
   local util = require("essential.util")
-  local float_bg = o.transparent and c.none or (o.float.solid and c.surface1 or c.bg_float)
+  local solid = o.float.solid
+  if solid == nil then solid = c.variant == "dark" end
+  local float_bg = o.transparent and c.none or (solid and c.surface_float or c.bg_float)
   local bg = o.transparent and c.none or c.bg
 
   return {
@@ -27,7 +29,7 @@ return function(c, o)
     MiniPickHeader = { fg = c.fg, bold = true },
     MiniPickIconDirectory = { fg = c.fg },
     MiniPickIconFile = { fg = c.fg },
-    MiniPickMatchCurrent = { bg = c.surface2, bold = true },
+    MiniPickMatchCurrent = { bg = c.select, bold = true },
     MiniPickMatchMarked = { bg = util.blend(c.accent, c.bg, 0.18) },
     MiniPickMatchRanges = { fg = c.accent, bold = true },
     MiniPickPreviewLine = { bg = c.surface2 },
@@ -41,7 +43,7 @@ return function(c, o)
     MiniFilesNormal = { fg = c.fg, bg = float_bg },
     MiniFilesBorder = { link = "FloatBorder" },
     MiniFilesBorderModified = { fg = c.git.change, bg = float_bg },
-    MiniFilesCursorLine = { bg = c.surface2 },
+    MiniFilesCursorLine = { bg = c.select },
     MiniFilesDirectory = { fg = c.fg, bold = true },
     MiniFilesFile = { fg = c.fg },
     MiniFilesTitle = { fg = c.muted, bg = float_bg },

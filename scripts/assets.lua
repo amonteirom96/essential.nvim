@@ -181,7 +181,7 @@ local function editor(c, ox, oy, w, h, label)
   for j, item in ipairs(MENU) do
     local iy = my + 6 + (j - 1) * 24
     if j == 1 then
-      add('<rect x="%d" y="%d" width="%d" height="24" fill="%s"/>', mx + 1, iy, mw - 2, c.surface2)
+      add('<rect x="%d" y="%d" width="%d" height="24" fill="%s"/>', mx + 1, iy, mw - 2, c.select)
     end
     local kind = c[item[3]]
     add('<rect x="%d" y="%d" width="16" height="16" rx="4" fill="%s"/>', mx + 10, iy + 4, util.blend(kind, c.bg, 0.2))

@@ -10,7 +10,7 @@ local M = {}
 ---@field dim_inactive? boolean                 slightly different bg on unfocused windows
 ---@field tones? boolean                        code roles in tones of fg (false = one flat fg)
 ---@field muted_comments? boolean               comments in the muted UI tone
----@field float? { solid?: boolean }            solid = filled floats without visible border
+---@field float? { solid?: boolean }            solid = raised floats; defaults to true in dark mode
 ---@field styles? table<"comments"|"keywords"|"functions"|"variables"|"strings"|"types"|"constants"|"operators", essential.Style>
 ---@field integrations? table<string, boolean>
 ---@field cache? boolean                        compile highlights to bytecode (recommended)
@@ -23,7 +23,7 @@ M.defaults = {
   dim_inactive = false,
   tones = true,
   muted_comments = false,
-  float = { solid = false },
+  float = {},
   styles = {
     comments = { italic = true },
     keywords = { bold = true },

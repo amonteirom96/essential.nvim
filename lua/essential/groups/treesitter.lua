@@ -26,6 +26,11 @@ return function(c, o)
     ["@variable.member"] = with(k.variable, s.variables),
 
     ["@constant"] = with(k.constant, s.constants),
+    ["@number"] = with(k.constant, s.constants),
+    ["@number.float"] = with(k.constant, s.constants),
+    ["@boolean"] = with(k.constant, s.constants),
+    ["@character"] = with(k.string, s.strings),
+    ["@comment"] = with(k.comment, s.comments),
     ["@constant.builtin"] = with(k.constant, s.constants),
     ["@module"] = { fg = fg },
     ["@module.builtin"] = { fg = fg },

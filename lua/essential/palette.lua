@@ -8,7 +8,7 @@ local M = {}
 ---@type table<"light"|"dark", essential.BasePalette>
 M.base = {
   light = {
-    bg = "#eef2f8", -- paper: white leaning to a soft, cool blue
+    bg = "#fdf6e3", -- Solarized paper, matching madu.nvim
     fg = "#262b36", -- near-black leaning to blue
     red = "#a53d38",
     orange = "#904e1b",
@@ -49,6 +49,9 @@ M.base = {
 ---@field variant "light"|"dark"
 ---@field none "NONE"
 ---@field bg_float string
+---@field select string      current item in lists and pickers
+---@field surface_float string elevated popup background
+---@field comment string     default comment tone
 ---@field bg_dim string      background for inactive windows (dim_inactive)
 ---@field surface1 string    cursorline, subtle rows
 ---@field surface2 string    selection, active tab, statusline
@@ -89,10 +92,12 @@ function M.get(variant, opts)
   c.surface1 = blend(c.fg, c.bg, is_light and 0.05 or 0.055)
   c.surface2 = blend(c.fg, c.bg, is_light and 0.10 or 0.11)
   c.surface3 = blend(c.fg, c.bg, is_light and 0.17 or 0.19)
+  c.select = c.surface3
+  c.surface_float = c.surface1
   c.border = blend(c.fg, c.bg, is_light and 0.26 or 0.28)
   c.muted = blend(c.fg, c.bg, is_light and 0.52 or 0.50)
   c.bg_dim = is_light and blend(c.fg, c.bg, 0.03) or util.darken(c.bg, 0.12)
-  c.bg_float = c.bg
+  c.bg_float = is_light and c.bg or c.surface1
   c.accent = c.blue
   -- Tinted accent, same hue family as bg so it stays clean (a yellow blend
   -- turns muddy gray here). Stronger than surface3 so it reads apart from Visual.
@@ -116,6 +121,8 @@ function M.get(variant, opts)
     punctuation = subtle,
     comment = opts.muted_comments and c.muted or opts.tones == false and c.fg or blend(c.fg, c.bg, 0.72),
   }
+
+  c.comment = c.code.comment
 
   c.git = { add = c.green, change = c.blue, delete = c.red }
   c.diag = { error = c.red, warn = c.yellow, info = c.blue, hint = c.cyan, ok = c.green }

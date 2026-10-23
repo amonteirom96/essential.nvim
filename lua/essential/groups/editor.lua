@@ -5,13 +5,22 @@ local util = require("essential.util")
 return function(c, o)
   local blend = util.blend
   local bg = o.transparent and c.none or c.bg
-  local float_bg = o.transparent and c.none or (o.float.solid and c.surface1 or c.bg_float)
-  local float_border = o.float.solid and { fg = c.surface1, bg = float_bg } or { fg = c.border, bg = float_bg }
+  local solid = o.float.solid
+  if solid == nil then solid = c.variant == "dark" end
+  local float_bg = o.transparent and c.none or (solid and c.surface_float or c.bg_float)
+  -- Rounded border glyphs leave space around their strokes. Match that space
+  -- to the editor so the popup background does not form a square outer band.
+  local float_border = { fg = solid and blend(c.fg, c.surface_float, 0.14) or c.border, bg = bg }
+
+  if c.variant == "light" then
+    float_border = solid and { fg = c.surface1, bg = float_bg } or { fg = c.border, bg = float_bg }
+  end
 
   local hl = {
     -- Base -------------------------------------------------------------------
     Normal = { fg = c.fg, bg = bg },
     NormalNC = { fg = c.fg, bg = (o.dim_inactive and not o.transparent) and c.bg_dim or bg },
+    EssentialPreview = { fg = c.fg, bg = c.surface2 },
     NormalFloat = { fg = c.fg, bg = float_bg },
     FloatBorder = float_border,
     FloatTitle = { fg = c.fg, bg = float_bg, bold = true },
@@ -54,7 +63,7 @@ return function(c, o)
     SignColumn = { fg = c.muted, bg = bg },
     FoldColumn = { fg = c.muted, bg = bg },
     Folded = { fg = c.fg, bg = c.surface1, italic = true },
-    QuickFixLine = { bg = c.surface2, bold = true },
+    QuickFixLine = { bg = c.select, bold = true },
 
     -- Selection & search (color here helps you find things) ------------------
     Visual = { bg = c.surface3 },
@@ -77,17 +86,17 @@ return function(c, o)
     TabLineSel = { fg = c.fg, bg = c.surface2, bold = true, sp = c.accent, underline = true },
     WinBar = { fg = c.fg, bg = bg },
     WinBarNC = { fg = c.muted, bg = bg },
-    WildMenu = { fg = c.fg, bg = c.surface3, bold = true },
+    WildMenu = { fg = c.fg, bg = c.select, bold = true },
 
     -- Popup menu -------------------------------------------------------------
     Pmenu = { fg = c.fg, bg = float_bg },
-    PmenuSel = { bg = c.surface2, bold = true },
+    PmenuSel = { bg = c.select, bold = true },
     PmenuKind = { fg = c.muted, bg = float_bg },
-    PmenuKindSel = { fg = c.fg, bg = c.surface2 },
+    PmenuKindSel = { fg = c.fg, bg = c.select },
     PmenuExtra = { fg = c.muted, bg = float_bg },
-    PmenuExtraSel = { fg = c.muted, bg = c.surface2 },
+    PmenuExtraSel = { fg = c.muted, bg = c.select },
     PmenuMatch = { fg = c.accent, bold = true },
-    PmenuMatchSel = { fg = c.accent, bg = c.surface2, bold = true },
+    PmenuMatchSel = { fg = c.accent, bg = c.select, bold = true },
     PmenuSbar = { bg = float_bg },
     PmenuThumb = { bg = c.surface3 },
     PmenuBorder = float_border,
@@ -147,7 +156,7 @@ return function(c, o)
     RedrawDebugNormal = { reverse = true },
     RedrawDebugClear = { bg = c.yellow },
     RedrawDebugComposed = { bg = c.green },
-    RedrawDebugRecompose = { bg = c.red },
+    RedrawDebugRecompose = { bg = c.variant == "light" and c.orange or c.red },
   }
 
   for name, color in pairs({ Error = c.diag.error, Warn = c.diag.warn, Info = c.diag.info, Hint = c.diag.hint, Ok = c.diag.ok }) do

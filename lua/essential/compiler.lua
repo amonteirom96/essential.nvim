@@ -70,6 +70,7 @@ function M.source(name, variant, hl, terminal)
       lines[#lines + 1] = fmt("g.terminal_color_%d=%q", i, terminal[i])
     end
   end
+  lines[#lines + 1] = 'require("essential.preview").setup()'
   return concat(lines, "\n")
 end
 

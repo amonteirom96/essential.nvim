@@ -44,7 +44,7 @@ stops telling you anything. **essential** does the opposite:
   | LSP completion kinds (blink.cmp, dropbar) | one color per kind, the same everywhere |
   | File icons (mini.icons) | real icon colors |
   | Search, `TODO` / `FIXME` / `NOTE` markers | attention colors |
-- **Easy on the eyes.** The light variant uses cool blue-tinted paper with near-black ink.
+- **Easy on the eyes.** The light variant uses warm Solarized paper with near-black ink.
   The dark variant uses blue-gray slate with off-white text. Every accent passes
   **WCAG AA (≥ 4.5:1)** on both the background and the selection color
   (`scripts/contrast.lua`).
@@ -81,6 +81,16 @@ stops telling you anything. **essential** does the opposite:
 | [mason.nvim](https://github.com/mason-org/mason.nvim) | |
 | [lazy.nvim](https://github.com/folke/lazy.nvim) | |
 | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) | captures incl. `@markup.*`, `@diff.*`, `@comment.todo` … |
+
+Additional coverage includes Telescope, Snacks, nvim-cmp, Neo-tree, nvim-tree,
+Noice, Trouble, DAP, render-markdown, which-key, bufferline, and the mini.nvim
+modules. Each can be disabled through `integrations` using its name from
+[`support_modules.lua`](lua/essential/groups/support_modules.lua). Existing
+Essential syntax and highlight overrides take precedence.
+
+Lualine and Lightline themes are available as `essential`. Substitution previews
+(`inccommand=split`) use a distinct background, and dark popups are raised above
+the editor. List selections share the stronger `select` surface.
 
 ## Installation
 
@@ -133,7 +143,7 @@ require("essential").setup({
   tones = true,              -- code roles in tones of fg; false = one flat color
   muted_comments = false,    -- comments in the muted UI tone (lighter than the comment tone)
   float = {
-    solid = false,           -- filled floats with an invisible border
+    solid = nil,             -- raised floats by default in dark mode; true/false overrides
   },
   styles = {                 -- any nvim_set_hl attributes (bold, italic, underline…)
     comments = { italic = true },
@@ -235,7 +245,7 @@ Change any of them with `on_highlights`, or turn them off with
 
 | Key | Light | Dark | Used for |
 | --- | --- | --- | --- |
-| `bg` | `#eef2f8` | `#232833` | background |
+| `bg` | `#fdf6e3` | `#232833` | background |
 | `fg` | `#262b36` | `#d0d6e1` | **all code** (in tones, see `code`) |
 | `red` | `#a53d38` | `#e8938d` | git delete, errors |
 | `orange` | `#904e1b` | `#e0a574` | kinds (enum, constant) |
@@ -246,8 +256,11 @@ Change any of them with `on_highlights`, or turn them off with
 | `blue` | `#3b5bb2` | `#94a8e8` | git change, info, functions, `accent` |
 | `purple` | `#764ba3` | `#bb9fe3` | modules, keywords (kinds) |
 
+The backgrounds match `madu.nvim`: light `#fdf6e3`, dark `#232833`.
+
 UI tones are derived from `fg` and `bg`: `surface1`, `surface2`, `surface3`,
-`border`, `muted` and `bg_dim`. `muted` appears only in UI chrome, such as line
+`border`, `muted` and `bg_dim`. `select` uses `surface3`; `surface_float`
+uses `surface1`. `muted` appears only in UI chrome, such as line
 numbers and whitespace.
 
 Code tones live in `c.code` and are also derived from `fg` and `bg`:
@@ -296,6 +309,9 @@ Ghostty or Kitty theme automatically.
 nvim --headless -u NONE --cmd "set rtp^=." -l scripts/contrast.lua
 # smoke tests
 nvim --headless -u NONE --cmd "set rtp^=." -l tests/smoke.lua
+nvim --headless -u NONE --cmd "set rtp^=." -l tests/coverage.lua
+# substitution preview regression (requires a terminal UI)
+nvim -u NONE -i NONE --cmd "set rtp^=." -c "lua dofile('tests/preview.lua')"
 # load-time benchmark
 nvim --headless -u NONE --cmd "set rtp^=." -l scripts/bench.lua
 # regenerate extras and README images from the palette
